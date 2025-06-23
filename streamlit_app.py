@@ -1,41 +1,49 @@
 #!/usr/bin/env python3
 """
-AI Boardroom - Streamlit Application Entry Point
+AI Boardroom - Professional Streamlit Application Entry Point
 
-This is the main entry point for running the AI Boardroom application with Streamlit.
+This is the main entry point for the professional AI Boardroom application.
 Run with: streamlit run streamlit_app.py
 """
 
 import sys
 import os
 
-# Add the current directory to Python path so we can import from backend
+# Add the current directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    # Import and run the main UI
-    from backend.app.ui import main
+    # Import and run the new professional home page
+    from Home import main as home_main
     
     if __name__ == "__main__":
-        main()
+        home_main()
     else:
         # When imported by Streamlit
-        main()
+        home_main()
         
 except ImportError as e:
-    import streamlit as st
-    st.error(f"""
-    🚨 **Import Error**: {str(e)}
-    
-    **Possible solutions:**
-    1. Install dependencies: `pip install -r requirements.txt`
-    2. Ensure you're in the ai-boardroom directory
-    3. Check that all backend files exist
-    
-    **For support:** Run `python -m backend.app.main --mode health`
-    """)
-    st.stop()
-    
+    # Fallback to legacy UI if new interface fails
+    try:
+        from backend.app.ui import main as legacy_main
+        legacy_main()
+    except Exception as legacy_e:
+        import streamlit as st
+        st.error(f"""
+        🚨 **Application Error**: Could not load interface
+        
+        **Primary Error**: {str(e)}
+        **Fallback Error**: {str(legacy_e)}
+        
+        **Troubleshooting:**
+        1. Install dependencies: `pip install -r requirements.txt`
+        2. Run health check: `python -m backend.app.main --mode health`
+        3. Check your .env file configuration
+        
+        **For support:** Verify all files exist and API keys are configured
+        """)
+        st.stop()
+        
 except Exception as e:
     import streamlit as st
     st.error(f"""
