@@ -18,9 +18,11 @@ from components.chat_interface import (
     render_chat_stats,
     render_info_message,
     render_success_message,
+    render_connection_status,
     initialize_chat_session,
     get_session_duration
 )
+from components.theme_manager import apply_theme, render_theme_toggle
 
 def main():
     """Main application entry point"""
@@ -35,6 +37,9 @@ def main():
     
     # Load professional styles
     load_chat_styles()
+    
+    # Apply theme
+    apply_theme()
     
     # Initialize session
     initialize_chat_session()
@@ -56,29 +61,35 @@ def main():
         
         # Navigation buttons
         if st.button("💬 Start AI Chat", key="nav_chat", help="Single AI conversation mode"):
-            st.switch_page("pages/01_💬_AI_Chat.py")
+            st.switch_page("pages/01_AI_Chat.py")
         
         if st.button("🏢 Join Boardroom", key="nav_boardroom", help="Multi-AI debate mode"):
-            st.switch_page("pages/02_🏢_Boardroom.py")
+            st.switch_page("pages/02_Boardroom.py")
         
         if st.button("📁 Process Files", key="nav_files", help="Upload and analyze documents"):
-            st.switch_page("pages/03_📁_Files.py")
+            st.switch_page("pages/03_Files.py")
         
         if st.button("🎨 Generate Images", key="nav_images", help="AI image generation"):
-            st.switch_page("pages/04_🎨_Images.py")
+            st.switch_page("pages/04_Images.py")
         
         st.markdown("---")
         
         st.markdown("### ⚙️ Application")
         
         if st.button("⚙️ Settings", key="nav_settings"):
-            st.switch_page("pages/05_⚙️_Settings.py")
+            st.switch_page("pages/05_Settings.py")
         
         if st.button("📊 Usage Stats", key="nav_usage"):
-            st.switch_page("pages/06_📊_Usage.py")
+            st.switch_page("pages/06_Usage.py")
         
         if st.button("💳 Billing", key="nav_billing"):
-            st.switch_page("pages/07_💳_Billing.py")
+            st.switch_page("pages/07_Billing.py")
+        
+        st.markdown("---")
+        
+        # Theme toggle
+        st.markdown("### 🎨 Theme")
+        render_theme_toggle("home_theme_toggle")
         
         st.markdown("---")
         
@@ -95,12 +106,14 @@ def main():
             
             if health_ok:
                 render_success_message("All systems operational")
+                render_connection_status("connected")
             else:
                 st.markdown("""
                 <div class="alert alert-warning">
                     <strong>⚠️ Warning:</strong> Some systems may be offline
                 </div>
                 """, unsafe_allow_html=True)
+                render_connection_status("error")
                 
         except Exception as e:
             st.markdown("""
@@ -265,15 +278,26 @@ def main():
         <h3>🎯 Ready to get started?</h3>
         <p>Choose your AI interaction mode and begin your conversation</p>
         <div style="margin-top: 1.5rem;">
-            <a href="/💬_AI_Chat" style="margin: 0 1rem;">
-                <button class="btn-primary">Start AI Chat</button>
-            </a>
-            <a href="/🏢_Boardroom" style="margin: 0 1rem;">
-                <button class="btn-secondary">Join Boardroom</button>
-            </a>
+            <!-- Footer navigation buttons will be handled by Streamlit buttons below -->
         </div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Add proper Streamlit navigation buttons
+    col1, col2, col3 = st.columns([1, 1, 1])
+    
+    with col1:
+        pass  # Empty for spacing
+    
+    with col2:
+        if st.button("🚀 Start AI Chat", key="footer_start_chat", type="primary"):
+            st.switch_page("pages/01_AI_Chat.py")
+        
+        if st.button("🏢 Join Boardroom", key="footer_join_boardroom"):
+            st.switch_page("pages/02_Boardroom.py")
+    
+    with col3:
+        pass  # Empty for spacing
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 """
-Image Generation Page - AI Image Creation
-Professional interface for image generation capabilities
+Billing Page - Subscription Management
+Professional interface for billing and subscriptions
 """
 
 import streamlit as st
@@ -18,33 +18,33 @@ from components.chat_interface import (
 
 def main():
     st.set_page_config(
-        page_title="Image Generation - AI Boardroom",
-        page_icon="🎨",
+        page_title="💳 Billing - AI Boardroom",
+        page_icon="💳",
         layout="wide"
     )
     
     load_chat_styles()
     
     render_conversation_header(
-        "Image Generation",
-        "Create images with AI models"
+        "Billing & Subscriptions",
+        "Manage your AI Boardroom subscription"
     )
     
-    render_info_message("Image generation feature coming in Week 3 of development")
+    render_info_message("Billing feature coming in Week 4 of development")
     
     st.markdown("""
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">🎨 Planned Features</h3>
+            <h3 class="card-title">💳 Planned Features</h3>
         </div>
         <div style="margin: 1.5rem 0;">
             <ul>
-                <li>DALL-E integration</li>
-                <li>Stable Diffusion support</li>
-                <li>Custom prompts and styles</li>
-                <li>Image editing capabilities</li>
-                <li>Batch generation</li>
-                <li>High-resolution exports</li>
+                <li>Subscription tier management</li>
+                <li>Stripe integration</li>
+                <li>Usage-based billing</li>
+                <li>Invoice history</li>
+                <li>Payment method management</li>
+                <li>Upgrade/downgrade options</li>
             </ul>
         </div>
     </div>

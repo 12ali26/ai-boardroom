@@ -10,17 +10,26 @@ import asyncio
 
 def load_chat_styles():
     """Load professional chat CSS styles"""
-    with open("styles/main.css", "r") as f:
-        main_css = f.read()
-    with open("styles/chat.css", "r") as f:
-        chat_css = f.read()
-    
-    st.markdown(f"""
-    <style>
-    {main_css}
-    {chat_css}
-    </style>
-    """, unsafe_allow_html=True)
+    try:
+        with open("styles/main.css", "r") as f:
+            main_css = f.read()
+        with open("styles/chat.css", "r") as f:
+            chat_css = f.read()
+        with open("styles/animations.css", "r") as f:
+            animations_css = f.read()
+        with open("styles/mobile.css", "r") as f:
+            mobile_css = f.read()
+        
+        st.markdown(f"""
+        <style>
+        {main_css}
+        {chat_css}
+        {animations_css}
+        {mobile_css}
+        </style>
+        """, unsafe_allow_html=True)
+    except FileNotFoundError as e:
+        st.error(f"CSS file not found: {e}")
 
 def render_message(message: Dict, is_user: bool = False, persona: Optional[str] = None):
     """Render a single message with professional styling"""
@@ -251,13 +260,77 @@ def render_export_options():
     
     return None
 
-def render_loading_message(message: str = "Processing your request..."):
-    """Render loading message with animation"""
+def render_loading_message(message: str = "Processing your request...", show_dots: bool = True):
+    """Render enhanced loading message with animation"""
+    
+    dots_html = ""
+    if show_dots:
+        dots_html = """
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        """
     
     st.markdown(f"""
-    <div class="ai-message message-loading">
-        <div class="spinner"></div>
-        <div style="margin-left: 10px; display: inline-block;">{message}</div>
+    <div class="ai-message loading-pulse fade-in">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            {dots_html}
+            <div>{message}</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def render_skeleton_message(is_user: bool = False):
+    """Render skeleton loading for message"""
+    
+    skeleton_class = "message-skeleton user" if is_user else "message-skeleton"
+    
+    st.markdown(f"""
+    <div class="{skeleton_class}">
+        <div class="skeleton-avatar"></div>
+        <div class="skeleton-message-content">
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-line medium"></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def render_typing_indicator_enhanced(persona: Optional[str] = None, avatar: str = "🤖"):
+    """Render enhanced typing indicator with persona info"""
+    
+    persona_text = f"{persona} is typing..." if persona else "AI is typing..."
+    
+    st.markdown(f"""
+    <div class="typing-indicator-enhanced slide-in-left">
+        <div class="typing-avatar">{avatar}</div>
+        <div class="typing-text">{persona_text}</div>
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+def render_connection_status(status: str = "connected"):
+    """Render connection status indicator"""
+    
+    status_config = {
+        "connected": {"color": "green", "text": "Connected", "icon": "🟢"},
+        "connecting": {"color": "orange", "text": "Connecting", "icon": "🟡"},
+        "disconnected": {"color": "red", "text": "Disconnected", "icon": "🔴"},
+        "error": {"color": "red", "text": "Connection Error", "icon": "❌"}
+    }
+    
+    config = status_config.get(status, status_config["connected"])
+    dot_class = f"connection-dot {status}" if status != "connected" else "connection-dot"
+    
+    st.markdown(f"""
+    <div class="connection-indicator">
+        <div class="{dot_class}"></div>
+        <span>{config['text']}</span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -347,3 +420,212 @@ def get_session_duration():
         hours = total_minutes // 60
         minutes = total_minutes % 60
         return f"{hours}h {minutes}m"
+
+def render_modern_chat_messages(messages: List[Dict], show_typing: bool = False):
+    """Render modern ChatGPT/Claude-style chat messages"""
+    
+    # Create scrollable chat container
+    st.markdown("""
+    <div style="height: 60vh; overflow-y: auto; padding: 1rem; margin-bottom: 2rem;">
+    """, unsafe_allow_html=True)
+    
+    # Render all messages
+    for message in messages:
+        render_modern_message(message)
+        st.markdown("<br>", unsafe_allow_html=True)  # Space between messages
+    
+    # Show typing indicator if needed
+    if show_typing:
+        render_modern_typing_indicator()
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+
+def render_modern_message(message: Dict):
+    """Render a single message in modern ChatGPT/Claude style"""
+    
+    content = message.get('content', '')
+    is_user = message.get('is_user', False)
+    
+    if is_user:
+        # User message - right aligned like ChatGPT
+        st.markdown(f"""
+        <div style="display: flex; justify-content: flex-end; margin: 1.5rem 0;">
+            <div style="
+                background: #2563eb;
+                color: white;
+                padding: 0.875rem 1.125rem;
+                border-radius: 20px 20px 4px 20px;
+                max-width: 85%;
+                word-wrap: break-word;
+                font-size: 15px;
+                line-height: 1.5;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            ">
+                {content}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        # AI message - left aligned like ChatGPT with avatar space
+        st.markdown(f"""
+        <div style="display: flex; justify-content: flex-start; margin: 1.5rem 0; align-items: flex-start;">
+            <div style="
+                width: 32px;
+                height: 32px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 50%;
+                margin-right: 0.75rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                color: white;
+                flex-shrink: 0;
+            ">
+                🤖
+            </div>
+            <div style="
+                background: #ffffff;
+                color: #374151;
+                padding: 0.875rem 1.125rem;
+                border-radius: 20px 20px 20px 4px;
+                max-width: 80%;
+                word-wrap: break-word;
+                font-size: 15px;
+                line-height: 1.5;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                border: 1px solid #e5e7eb;
+            ">
+                {content}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+def render_modern_typing_indicator():
+    """Render modern typing indicator like ChatGPT"""
+    
+    st.markdown("""
+    <div style="display: flex; justify-content: flex-start; margin: 1.5rem 0; align-items: flex-start;">
+        <div style="
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            flex-shrink: 0;
+        ">
+            🤖
+        </div>
+        <div style="
+            background: #ffffff;
+            padding: 0.875rem 1.125rem;
+            border-radius: 20px 20px 20px 4px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        ">
+            <div style="display: flex; gap: 0.25rem;">
+                <div style="
+                    width: 8px;
+                    height: 8px;
+                    background: #6c757d;
+                    border-radius: 50%;
+                    animation: typing-dot 1.4s infinite;
+                "></div>
+                <div style="
+                    width: 8px;
+                    height: 8px;
+                    background: #6c757d;
+                    border-radius: 50%;
+                    animation: typing-dot 1.4s infinite 0.2s;
+                "></div>
+                <div style="
+                    width: 8px;
+                    height: 8px;
+                    background: #6c757d;
+                    border-radius: 50%;
+                    animation: typing-dot 1.4s infinite 0.4s;
+                "></div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+    @keyframes typing-dot {
+        0%, 60%, 100% { opacity: 0.3; }
+        30% { opacity: 1; }
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+def render_modern_chat_input(placeholder: str = "Message...", key: str = "modern_chat_input"):
+    """Render modern ChatGPT-style input"""
+    
+    # Create input container with proper styling
+    st.markdown("""
+    <style>
+    .chat-input-wrapper {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 1rem;
+        background: white;
+        position: sticky;
+        bottom: 0;
+        z-index: 100;
+    }
+    
+    .stTextInput > div > div > input {
+        border-radius: 24px !important;
+        border: 1px solid #d1d5db !important;
+        padding: 12px 16px !important;
+        font-size: 16px !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+    }
+    
+    .stTextInput > div > div > input:focus {
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+    
+    .stButton > button {
+        border-radius: 50% !important;
+        width: 48px !important;
+        height: 48px !important;
+        border: none !important;
+        background: #3b82f6 !important;
+        color: white !important;
+        font-size: 18px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-left: 0.5rem !important;
+    }
+    
+    .stButton > button:hover {
+        background: #2563eb !important;
+        transform: scale(1.05) !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Create input with send button
+    col1, col2 = st.columns([10, 1])
+    
+    with col1:
+        message = st.text_input(
+            "",
+            placeholder=placeholder,
+            key=key,
+            label_visibility="collapsed"
+        )
+    
+    with col2:
+        send_clicked = st.button("↗", key=f"{key}_send", help="Send message")
+    
+    return message, send_clicked

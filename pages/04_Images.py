@@ -1,6 +1,6 @@
 """
-Usage Statistics Page - Analytics and Insights
-Professional interface for usage analytics
+Image Generation Page - AI Image Creation
+Professional interface for image generation capabilities
 """
 
 import streamlit as st
@@ -18,33 +18,33 @@ from components.chat_interface import (
 
 def main():
     st.set_page_config(
-        page_title="Usage Statistics - AI Boardroom",
-        page_icon="📊",
+        page_title="🎨 Image Generation - AI Boardroom",
+        page_icon="🎨",
         layout="wide"
     )
     
     load_chat_styles()
     
     render_conversation_header(
-        "Usage Statistics",
-        "Track your AI interactions and analytics"
+        "Image Generation",
+        "Create images with AI models"
     )
     
-    render_info_message("Usage analytics feature coming in Week 4 of development")
+    render_info_message("Image generation feature coming in Week 3 of development")
     
     st.markdown("""
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">📊 Planned Features</h3>
+            <h3 class="card-title">🎨 Planned Features</h3>
         </div>
         <div style="margin: 1.5rem 0;">
             <ul>
-                <li>Message usage tracking</li>
-                <li>Model usage statistics</li>
-                <li>Conversation history</li>
-                <li>Export usage reports</li>
-                <li>Performance metrics</li>
-                <li>Cost tracking</li>
+                <li>DALL-E integration</li>
+                <li>Stable Diffusion support</li>
+                <li>Custom prompts and styles</li>
+                <li>Image editing capabilities</li>
+                <li>Batch generation</li>
+                <li>High-resolution exports</li>
             </ul>
         </div>
     </div>

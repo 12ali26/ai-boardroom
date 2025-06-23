@@ -38,6 +38,13 @@ class PersonaManager:
                 role="CMO",
                 personality="Creative strategist with deep market insights. Data-driven yet intuitive about customer behavior. Enthusiastic about brand building and customer engagement.",
                 expertise="Marketing strategy, brand management, customer acquisition, digital marketing, market research"
+            ),
+            Persona(
+                name="David Kim",
+                model="openai/gpt-4-turbo",
+                role="CFO",
+                personality="Analytical thinker with strong financial acumen. Risk-aware but growth-oriented. Focuses on sustainable profitability and sound financial planning.",
+                expertise="Financial planning, risk management, investment analysis, budgeting, regulatory compliance"
             )
         ]
 

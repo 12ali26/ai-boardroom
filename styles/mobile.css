@@ -1,0 +1,484 @@
+/* 
+AI Boardroom - Mobile-First Responsive Design
+Optimized for mobile devices and tablets
+*/
+
+/* Mobile-First Base Styles */
+:root {
+    --mobile-padding: 1rem;
+    --mobile-margin: 0.75rem;
+    --mobile-header-height: 60px;
+    --mobile-nav-height: 70px;
+    --mobile-input-height: 48px;
+}
+
+/* Global Mobile Optimizations */
+@media (max-width: 768px) {
+    /* Hide Streamlit elements on mobile */
+    .stDeployButton { display: none !important; }
+    .stDecoration { display: none !important; }
+    
+    /* Main container adjustments */
+    .main .block-container {
+        padding: 0.5rem !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* App header mobile */
+    .app-header {
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+        border-radius: 12px !important;
+        text-align: center;
+    }
+    
+    .app-header h1 {
+        font-size: 1.5rem !important;
+        margin: 0;
+    }
+    
+    .app-header p {
+        font-size: 0.9rem !important;
+        margin: 0.5rem 0 0 0;
+    }
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    /* Sidebar adjustments */
+    .sidebar .sidebar-content {
+        padding: 0.75rem !important;
+        margin: 0 !important;
+    }
+    
+    .sidebar-title {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .sidebar-subtitle {
+        font-size: 0.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Navigation buttons mobile */
+    .nav-item {
+        padding: 0.5rem 0.75rem !important;
+        margin: 0.125rem 0 !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .nav-icon {
+        font-size: 1rem !important;
+        width: 18px !important;
+    }
+    
+    /* Streamlit buttons mobile */
+    .stButton > button {
+        width: 100% !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+        margin: 0.25rem 0 !important;
+    }
+}
+
+/* Mobile Chat Interface */
+@media (max-width: 768px) {
+    .chat-container {
+        margin: 0 !important;
+        padding: 0.5rem !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Message bubbles mobile */
+    .user-message,
+    .ai-message,
+    .persona-message {
+        max-width: 85% !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        border-radius: 18px 18px 18px 4px !important;
+    }
+    
+    .user-message {
+        border-radius: 18px 18px 4px 18px !important;
+    }
+    
+    /* Message metadata mobile */
+    .message-meta {
+        font-size: 0.7rem !important;
+        margin-top: 0.25rem !important;
+    }
+    
+    /* Persona badges mobile */
+    .persona-badge {
+        font-size: 0.65rem !important;
+        padding: 1px 6px !important;
+        margin-bottom: 0.25rem !important;
+    }
+    
+    /* Typing indicator mobile */
+    .typing-indicator {
+        max-width: 50px !important;
+        padding: 0.75rem 1rem !important;
+    }
+    
+    .typing-indicator-enhanced {
+        max-width: 80% !important;
+        padding: 0.75rem 1rem !important;
+    }
+}
+
+/* Mobile Input Areas */
+@media (max-width: 768px) {
+    .chat-input-container {
+        padding: 1rem 0.5rem !important;
+        position: sticky !important;
+        bottom: 0 !important;
+        background: white !important;
+        border-top: 1px solid #e9ecef !important;
+        margin: 0 -0.5rem !important;
+    }
+    
+    /* Input field mobile */
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea {
+        font-size: 16px !important; /* Prevent zoom on iOS */
+        border-radius: 24px !important;
+        padding: 0.75rem 1rem !important;
+        border: 2px solid #e9ecef !important;
+    }
+    
+    .chat-input {
+        font-size: 16px !important;
+        padding: 0.75rem 1rem !important;
+        border-radius: 24px !important;
+    }
+    
+    /* Send button mobile */
+    .send-button {
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Mobile Cards and Layouts */
+@media (max-width: 768px) {
+    .card {
+        padding: 1rem !important;
+        margin: 0.5rem 0 !important;
+        border-radius: 12px !important;
+    }
+    
+    .card-header {
+        padding-bottom: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .card-title {
+        font-size: 1.1rem !important;
+    }
+    
+    .card-subtitle {
+        font-size: 0.8rem !important;
+    }
+    
+    /* Metric cards mobile */
+    .metric-card {
+        padding: 1rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .metric-value {
+        font-size: 1.5rem !important;
+    }
+    
+    .metric-label {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Mobile Grid Layouts */
+@media (max-width: 768px) {
+    /* Force single column on mobile */
+    .stColumns {
+        flex-direction: column !important;
+    }
+    
+    .stColumn {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Stack columns vertically */
+    [data-testid="column"] {
+        width: 100% !important;
+        min-width: 100% !important;
+        flex: none !important;
+    }
+}
+
+/* Mobile Forms */
+@media (max-width: 768px) {
+    .stSelectbox > div > div > select {
+        font-size: 16px !important;
+        padding: 0.75rem 1rem !important;
+        border-radius: 12px !important;
+    }
+    
+    .stFileUploader > div > div {
+        padding: 1.5rem 1rem !important;
+        border-radius: 12px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Checkbox and radio mobile */
+    .stCheckbox > label {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 0 !important;
+    }
+    
+    .stRadio > label {
+        font-size: 0.9rem !important;
+        padding: 0.25rem 0 !important;
+    }
+}
+
+/* Mobile Alerts and Messages */
+@media (max-width: 768px) {
+    .alert {
+        padding: 0.75rem 1rem !important;
+        margin: 0.75rem 0 !important;
+        font-size: 0.9rem !important;
+        border-radius: 12px !important;
+    }
+    
+    .badge {
+        font-size: 0.65rem !important;
+        padding: 0.125rem 0.5rem !important;
+    }
+}
+
+/* Mobile Scrolling */
+@media (max-width: 768px) {
+    .messages-container {
+        max-height: calc(100vh - 200px) !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
+    }
+    
+    /* Hide scrollbars on mobile for cleaner look */
+    .messages-container::-webkit-scrollbar {
+        display: none !important;
+    }
+    
+    .messages-container {
+        -ms-overflow-style: none !important;
+        scrollbar-width: none !important;
+    }
+}
+
+/* Mobile Skeleton Loading */
+@media (max-width: 768px) {
+    .skeleton-card {
+        padding: 1rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .message-skeleton {
+        max-width: 85% !important;
+    }
+    
+    .skeleton-avatar {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    
+    .skeleton-message-content {
+        padding: 0.75rem 1rem !important;
+        border-radius: 18px !important;
+    }
+}
+
+/* Mobile Touch Targets */
+@media (max-width: 768px) {
+    /* Ensure touch targets are at least 44px */
+    .nav-item,
+    .stButton > button,
+    .send-button,
+    .hover-lift,
+    .click-feedback {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+    
+    /* Increase tap area for small elements */
+    .persona-badge,
+    .badge,
+    .connection-indicator {
+        padding: 0.25rem 0.5rem !important;
+        min-height: 32px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+}
+
+/* Tablet Optimizations (768px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main .block-container {
+        padding: 1rem !important;
+        max-width: 95% !important;
+    }
+    
+    .chat-container {
+        max-width: 90% !important;
+        padding: 1rem !important;
+    }
+    
+    .user-message,
+    .ai-message,
+    .persona-message {
+        max-width: 75% !important;
+    }
+    
+    .card {
+        padding: 1.25rem !important;
+    }
+}
+
+/* Mobile Landscape Optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+    .app-header {
+        padding: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .app-header h1 {
+        font-size: 1.25rem !important;
+    }
+    
+    .app-header p {
+        font-size: 0.8rem !important;
+    }
+    
+    .messages-container {
+        max-height: calc(100vh - 150px) !important;
+    }
+    
+    .chat-input-container {
+        padding: 0.75rem 0.5rem !important;
+    }
+}
+
+/* High DPI / Retina Display Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .persona-badge,
+    .badge,
+    .connection-dot {
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+    }
+}
+
+/* Mobile Dark Theme Adjustments */
+@media (max-width: 768px) {
+    [data-theme="dark"] .chat-input-container {
+        background: #1a202c !important;
+        border-color: #4a5568 !important;
+    }
+    
+    [data-theme="dark"] .app-header {
+        background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%) !important;
+    }
+    
+    [data-theme="dark"] .card {
+        background: #2d3748 !important;
+        border-color: #4a5568 !important;
+    }
+}
+
+/* iOS Safari Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 768px) {
+        /* Fix iOS Safari input zoom */
+        .stTextInput > div > div > input,
+        .stTextArea > div > div > textarea,
+        .stSelectbox > div > div > select {
+            font-size: 16px !important;
+            transform: scale(1) !important;
+        }
+        
+        /* Fix iOS Safari bottom padding for home indicator */
+        .chat-input-container {
+            padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+        }
+        
+        /* Prevent elastic scroll on iOS */
+        .messages-container {
+            -webkit-overflow-scrolling: touch !important;
+            overscroll-behavior: contain !important;
+        }
+    }
+}
+
+/* Android Chrome Specific Fixes */
+@media (max-width: 768px) {
+    /* Fix Android Chrome viewport height issues */
+    .messages-container {
+        max-height: calc(100vh - 200px) !important;
+        height: calc(100vh - 200px) !important;
+    }
+    
+    /* Prevent zoom on focus for Android */
+    .stTextInput > div > div > input:focus,
+    .stTextArea > div > div > textarea:focus {
+        font-size: 16px !important;
+    }
+}
+
+/* Accessibility Improvements for Mobile */
+@media (max-width: 768px) {
+    /* Larger focus indicators on mobile */
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 3px solid var(--primary-color, #667eea) !important;
+        outline-offset: 2px !important;
+    }
+    
+    /* Better contrast for mobile screens */
+    .message-meta {
+        color: #4a5568 !important;
+    }
+    
+    .sidebar-subtitle {
+        color: #4a5568 !important;
+    }
+}
+
+/* Print Styles for Mobile */
+@media print {
+    .sidebar,
+    .chat-input-container,
+    .nav-item,
+    .stButton {
+        display: none !important;
+    }
+    
+    .main .block-container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .chat-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+    }
+}
